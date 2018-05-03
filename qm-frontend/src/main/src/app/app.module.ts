@@ -136,7 +136,7 @@ export class QuizMaterialModule {}
   ],
   entryComponents: [CategoryQuestionDetailComponent, AnswerDetailDialogPanel, QuestionDetailDialogPanel],
   providers: [
-    { provide: 'apiUrl', useValue: 'services/api' },
+    { provide: 'apiUrl', useValue: 'http://localhost:8060/quiz/services/api' },
     NotificationsService
   ],
   bootstrap: [AppComponent]
