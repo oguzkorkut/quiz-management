@@ -1,0 +1,30 @@
+<h1 mat-dialog-title>Add Question</h1>
+<div mat-dialog-content>
+    <!--<mat-form-field>
+        <input matInput [(ngModel)]="data.categoryId">
+    </mat-form-field>-->
+
+    <div class="answer-container">
+        <!-- <mat-form-field>
+            <input matInput [(ngModel)]="data.categoryId">
+        </mat-form-field>-->
+
+        <mat-form-field [hideRequiredMarker]="true">
+            <textarea matInput [(ngModel)]="data.question" placeholder="Question" required></textarea>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-select placeholder="Select" [(value)]="data.questionType">
+                <!--<mat-option value="option">Option</mat-option>-->
+                <mat-option value="SINGLE_CHOICE">Single Choice</mat-option>
+                <mat-option value="MULTIPLE_CHOICE">Multiple Choice</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+</div>
+
+<div mat-dialog-actions class="pull-right">
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button (click)="checkout()" cdkFocusInitial>Save</button>
+    <!-- <button mat-button [mat-dialog-close]="checkout()" cdkFocusInitial>Save</button>-->
+</div>

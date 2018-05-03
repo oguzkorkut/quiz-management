@@ -1,0 +1,64 @@
+<h1 mat-dialog-title>Add Answer</h1>
+<div mat-dialog-content>
+    <!--<mat-form-field>
+        <input matInput [(ngModel)]="data.categoryId">
+    </mat-form-field>-->
+
+    <div class="answer-container">
+        <!-- <mat-form-field>
+            <input matInput [(ngModel)]="data.categoryId">
+        </mat-form-field>-->
+
+        <div class="row">
+            <!-- /.col-lg-6 -->
+            <div class="col-lg-12">
+                <div class="input-group">
+                    <input type="text" class="form-control" #answerText (keyup.enter)="addAnswer(data.questionId, answerText)">
+                    <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" (click)="addAnswer(data.questionId, answerText)">Ekle</button>
+                  </span>
+                </div>
+                <!-- /input-group -->
+            </div>
+            <!-- /.col-lg-6 -->
+        </div>
+
+        <div class="panel panel-default" *ngIf="data.answerDtos.length>0;else answerEmptyTmpl">
+            <div class="panel-heading">{{data.question}}</div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Answer</th>
+                        <th>Result</th>
+                        <th>-</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let answer of data.answerDtos; let i=index" [style.display]="!answer.deleted ? '' : 'none'">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ answer.answer }}</td>
+                        <td>
+                            <a class="btn btn-xs" (click)="changeResult(answer)" style="font-size: 17px">
+                                <div>{{ answer.result}}</div>
+                            </a>
+                        </td>
+                        <td><button class="btn btn-danger" (click)="delete(answer)">Delete</button></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--[style.display]="!answer.deleted ? 'block' : 'none'"-->
+<div mat-dialog-actions class="pull-right">
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button (click)="checkout()" cdkFocusInitial>Save</button>
+</div>
+
+<ng-template #answerEmptyTmpl>
+    <div class="alert alert-danger" role="alert">
+        Yapılacak görev yok.
+    </div>
+</ng-template>

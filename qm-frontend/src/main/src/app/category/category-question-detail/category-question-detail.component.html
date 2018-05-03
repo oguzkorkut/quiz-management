@@ -1,0 +1,133 @@
+<mat-card>
+    <mat-card-title> Questions</mat-card-title>
+    <!--<h4 class="page-header">Questions</h4>-->
+
+    <mat-card-content>
+
+
+
+        <mat-card>
+            <mat-card-content>
+
+                <div *ngIf="categoryId > 0">
+                    <!--<button (click)="openDialog(categoryId)" class="btn btn-xs btn-primary pull-right">
+                <i class="glyphicon glyphicon-plus"></i>
+                Add Question
+            </button>-->
+
+                    <button mat-button (click)="openQuestionDialog(categoryId)" class="btn btn-xs btn-primary pull-right"><i class="glyphicon glyphicon-plus"></i>
+                        Add Question</button>
+                </div>
+                <mat-form-field class="search-field-full-width">
+                    <textarea matInput placeholder="type something..." [(ngModel)]="filterText"></textarea>
+                </mat-form-field>
+
+                <div *ngIf="filterText">
+                    You searched for <strong> {{filterText}}</strong>
+                </div>
+
+
+            </mat-card-content>
+        </mat-card>
+
+        <mat-accordion>
+
+            <mat-expansion-panel *ngFor="let question of questions | questionFilter: filterText | slice:(pager.currentPage-1)*pager.pageSize:((pager.currentPage-1)*pager.pageSize)+pager.pageSize ; let i=index">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{question.question}}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Number of answers : {{question.answerDtos.length}}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <!--
+                <button mat-button (click)="openAnswerDialog(question)" class="btn btn-xs btn-primary pull-right">
+                    <i class="glyphicon glyphicon-plus"></i>
+                            Add Answer
+                </button>
+-->
+
+                <div class="row">
+
+                    <button mat-button (click)="openAnswerDialog(question.id, question.question, question.answerDtos)" class="btn btn-xs btn-primary pull-right"><i class="glyphicon glyphicon-plus"></i>
+                        ADD/UPDATE/DELETE</button>
+                    <!-- /.col-lg-6 -->
+                </div>
+
+                <div class="panel panel-default" *ngIf="question.answerDtos.length>0;else todoEmptyTmpl">
+                    <div class="panel-heading">{{question.question}}</div>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Answer</th>
+                                <th>Result</th>
+
+                                <!-- <th>-</th>-->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let answer of question.answerDtos; let i=index" [style.display]="!answer.deleted ? '' : 'none'">
+                                <td>{{ i + 1 }}</td>
+                                <td>{{ answer.answer }}</td>
+                                <td>
+                                    <a class="btn btn-xs" style="font-size: 17px">
+                                        <div>{{ answer.result }}</div>
+                                    </a>
+                                </td>
+                                <!-- <td><button class="btn btn-danger" (click)="deleteAnswer(answer)">Delete</button></td>-->
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+
+        <!--
+    <div *ngIf="filterText">
+        You searched for <strong> {{filterText}}</strong>
+    </div>
+    <div *ngIf="categoryId > 0">
+        <button (click)="openDialog(categoryId)" class="btn btn-xs btn-primary pull-right">
+        <i class="glyphicon glyphicon-plus"></i>
+        Add Question
+    </button>
+    </div>
+   
+
+    <div>
+        <input class="form-control" type="text" placeholder="type something..." [(ngModel)]="filterText">
+    </div>
+     -->
+
+
+
+        <nav aria-label="Page Navigation">
+            <ul class="pagination">
+                <li *ngFor="let page of pager.pageList" [class.active]="page===pager.currentPage">
+                    <a style="cursor: pointer;" (click)="setPage(page)">{{page}}</a>
+                </li>
+            </ul>
+
+        </nav>
+    </mat-card-content>
+
+
+</mat-card>
+
+
+
+
+<ng-template #questionNotEmptyContent>
+
+</ng-template>
+
+<ng-template #todoEmptyTmpl>
+    <div class="alert alert-danger" role="alert">
+        Answer is empty!
+    </div>
+</ng-template>

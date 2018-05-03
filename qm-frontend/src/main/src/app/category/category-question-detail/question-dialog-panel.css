@@ -1,0 +1,8 @@
+.answer-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.answer-container>* {
+    width: 100%;
+}

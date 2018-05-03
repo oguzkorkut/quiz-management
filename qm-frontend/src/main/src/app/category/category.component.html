@@ -1,0 +1,17 @@
+<h4 class="page-header">Shipping Details</h4>
+
+<form #categoryForm="ngForm" (ngSubmit)="checkout(categoryForm)">
+    <div class="form-group" [class.has-error]="categoryName.invalid&&categoryName.dirty">
+        <label class="control-label" for="categoryName">Category</label>
+        <input #categoryName="ngModel" type="text" class="form-control" id="categoryName" name="categoryName" [(ngModel)]="model.category" required>
+        <span *ngIf="categoryName.invalid&&categoryName.dirty" class="help-block">Category is required</span>
+    </div>
+
+    <div class="checkbox">
+        <label>
+          <input type="checkbox" name="active" [(ngModel)]="model.active">Is Active?
+      </label>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="categoryForm.invalid">Save</button>
+</form>
