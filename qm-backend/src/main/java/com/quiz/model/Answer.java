@@ -133,4 +133,16 @@ public class Answer {
 		this.question = question;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append("id :").append(id).append("\n").append("answer:").append(answer).append("\n").append("result:")
+				.append(result).append("\n").append("orderNo:").append(orderNo).append("\n").append("createdDate:")
+				.append(createdDate).append("\n").append("updatedDate:").append(updatedDate).append("\n")
+				.append("active:").append(active);
+
+		return builder.toString();
+	}
+
 }

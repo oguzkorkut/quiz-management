@@ -14,29 +14,55 @@ import com.quiz.repository.CategoryRepository;
 
 @Service("categoryDao")
 @Transactional
-public class CategoryDaoImpl implements ICategoryDao{
+public class CategoryDaoImpl implements ICategoryDao {
 
 	private static final Logger logger = LogManager.getLogger(CategoryDaoImpl.class);
 
 	@Autowired
-	private CategoryRepository  categoryRepository; 
-	
+	private CategoryRepository categoryRepository;
+
 	@Override
 	public boolean save(Category category) throws Exception {
-		
-		categoryRepository.save(category);
+		if (logger.isTraceEnabled()) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("saveCategory begins. ID: ");
+			sb.append(category.getId());
+			logger.trace(sb.toString());
+		}
+		Category categoryResult = categoryRepository.save(category);
+
+		if (logger.isTraceEnabled()) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("saveCategory ends. ID: ");
+			sb.append(categoryResult.getId());
+			logger.trace(sb.toString());
+		}
 		return true;
 	}
 
 	@Override
 	public boolean update(Category category) throws Exception {
-		categoryRepository.save(category);
+		if (logger.isTraceEnabled()) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("updateCategory begins. ID: ");
+			sb.append(category.getId());
+			logger.trace(sb.toString());
+		}
+		Category categoryResult = categoryRepository.save(category);
+
+		if (logger.isTraceEnabled()) {
+			StringBuilder sb = new StringBuilder();
+			sb.append("updateCategory ends. ID: ");
+			sb.append(categoryResult.getId());
+			logger.trace(sb.toString());
+		}
+
 		return true;
 	}
 
 	@Override
 	public List<Category> getCategories() throws Exception {
-		List<Category> categories =  categoryRepository.findAll();
+		List<Category> categories = categoryRepository.findAll();
 		return categories;
 	}
 
@@ -45,5 +71,5 @@ public class CategoryDaoImpl implements ICategoryDao{
 		Category category = categoryRepository.findOne(id);
 		return category;
 	}
-	
+
 }

@@ -18,6 +18,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.util.CollectionUtils;
+
 @Entity
 @Table(name = "Question")
 public class Question {
@@ -162,4 +164,25 @@ public class Question {
 		this.answers = answers;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append("id :").append(id).append("\n").append("question:").append(question).append("\n")
+				.append("questionType:").append(questionType).append("\n").append("puan:").append(puan).append("\n")
+				.append("orderNo:").append(orderNo).append("\n").append("createdDate:").append(createdDate).append("\n")
+				.append("updatedDate:").append(updatedDate).append("\n").append("active:").append(active).append("\n");
+		
+		builder.append("Answers:[").append("\n");
+		if (!CollectionUtils.isEmpty(answers)) {
+			for (Answer answer : answers) {
+				builder.append("\t{").append("\t\t").append(answer.toString()).append("\t}");
+			}
+		}else {
+			builder.append("null");
+		}
+		builder.append("]");
+
+		return builder.toString();
+	}
 }

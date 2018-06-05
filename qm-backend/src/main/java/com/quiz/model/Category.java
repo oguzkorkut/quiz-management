@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.util.CollectionUtils;
+
 @Entity
 @Table(name = "Category")
 public class Category {
@@ -114,6 +116,29 @@ public class Category {
 
 	public void setQuestions(List<Question> questions) {
 		this.questions = questions;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append("id :").append(id).append("\n").append("category:").append(category).append("\n")
+				.append("createdDate:").append(createdDate).append("\n").append("updatedDate:").append(updatedDate)
+				.append("\n").append("active:").append(active);
+		
+		
+		builder.append("Questions:[").append("\n");
+		if (!CollectionUtils.isEmpty(questions)) {
+			for (Question question : questions) {
+				builder.append("\t{").append("\t\t").append(question.toString()).append("\n").append("\t}");
+			}
+		}else {
+			builder.append("null");
+		}
+		builder.append("]");
+
+
+		return builder.toString();
 	}
 
 }
